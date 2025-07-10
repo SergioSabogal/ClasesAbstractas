@@ -36,6 +36,14 @@ public class EjemploForm {
         lenguaje.addOpciones(java);
         lenguaje.addOpciones(new Opcion("2", "python"));
 
+        ElementoForm saludar = new ElementoForm("saludo") {
+            @Override
+            public String dibujarHtml() {
+                return "<input disable name='" + this.nombre + "' value=\"" + this.valor +"\">";
+            }
+        };
+
+        saludar.setValor("Hola, esto es un campo deshabilitado");
         username.setValor("john.doe");
         password.setValor("a1b2c3");
         email.setValor("prueba@correo.co");
@@ -47,7 +55,19 @@ public class EjemploForm {
         List<ElementoForm> elementos = new ArrayList<>();
         elementos.add(username);
         elementos.add(password);
-        elementos
+        elementos.add(email);
+        elementos.add(edad);
+        elementos.add(experiencia);
+        elementos.add(lenguaje);
+        elementos.add(saludar);
+
+
+
+
+
+        for(ElementoForm e : elementos){
+            System.out.println(e.dibujarHtml());
+        }
 
 
     }
