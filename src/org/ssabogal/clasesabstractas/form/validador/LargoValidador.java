@@ -38,6 +38,6 @@ public class LargoValidador extends Validador {
             return true;
         }
         int largo = valor.length();
-        return (largo > = min && largo <=  max) ;
+        return (largo >= min && largo <=  max) ;
     }
 }

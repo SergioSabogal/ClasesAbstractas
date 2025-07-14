@@ -5,6 +5,10 @@ import org.ssabogal.clasesabstractas.form.elementos.InputForm;
 import org.ssabogal.clasesabstractas.form.elementos.SelectForm;
 import org.ssabogal.clasesabstractas.form.elementos.TextAreaForm;
 import org.ssabogal.clasesabstractas.form.elementos.select.Opcion;
+import org.ssabogal.clasesabstractas.form.validador.EmailValidador;
+import org.ssabogal.clasesabstractas.form.validador.NoNulo;
+import org.ssabogal.clasesabstractas.form.validador.NumeroValidador;
+import org.ssabogal.clasesabstractas.form.validador.RequeridoValidador;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,13 +29,24 @@ public class EjemploForm {
 */
 
         InputForm username = new InputForm("username");
+        username.addValidador(new RequeridoValidador());
+
         InputForm password = new InputForm("clave", "password");
+        password.addValidador(new RequeridoValidador());
+
         InputForm email = new InputForm("email", "email");
+        email.addValidador(new RequeridoValidador())
+                .addValidador(new EmailValidador());
+
         InputForm edad = new InputForm("edad", "number");
+        edad.addValidador(new NumeroValidador());
 
         TextAreaForm experiencia = new TextAreaForm("exp", 5, 9);
 
+
         SelectForm lenguaje = new SelectForm("lenguaje");
+        lenguaje.addValidador(new NoNulo());
+
         Opcion java = new Opcion("1", "java");
         lenguaje.addOpciones(java);
         lenguaje.addOpciones(new Opcion("2", "python"));
@@ -68,6 +83,13 @@ public class EjemploForm {
         for(ElementoForm e : elementos){
             System.out.println(e.dibujarHtml());
         }
+
+        elementos.forEach( e -> {
+            if(!edad.esValido()){
+                e.getErrores().forEach(err -> System.out.println(err)
+                );
+            }
+        });
 
 
     }
